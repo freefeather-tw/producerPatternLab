@@ -74,7 +74,7 @@ public class Customer implements Runnable {
                 List<Integer> processList = new ArrayList<>();
                 synchronized (queue) {
                     if (queue.isEmpty()) {
-                        log.info(name + " Queue 空空如也，沒有資料可以處理了！！");
+                        //log.info(name + " Queue 空空如也，沒有資料可以處理了！！");
                     } else {
                         log.info("queue 還有 " + queue.size() + "筆資料");
                         IntStream.range(0, batch)
@@ -85,9 +85,12 @@ public class Customer implements Runnable {
                                         processList.add(result);
                                     }
                                 });
-
-                        log.info(name + " 處理了: " + Strings.join(processList, ','));
                     }
+                }
+
+                //處理資料
+                if (!processList.isEmpty()) {
+                    log.info(name + " 處理了: " + Strings.join(processList, ','));
                 }
 
                 try {
