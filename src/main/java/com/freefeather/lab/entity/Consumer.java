@@ -119,7 +119,7 @@ public class Consumer implements Runnable {
         return name != null ? name.hashCode() : 0;
     }
 
-    void setQueue(Queue queue) {
+    void setQueue(Queue<Integer> queue) {
         this.queue = queue;
     }
 
