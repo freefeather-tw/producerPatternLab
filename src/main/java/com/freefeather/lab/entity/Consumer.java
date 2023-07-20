@@ -1,6 +1,5 @@
 package com.freefeather.lab.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
@@ -12,7 +11,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 @Slf4j
-public class Customer implements Runnable {
+public class Consumer implements Runnable {
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     @Getter
@@ -28,17 +27,17 @@ public class Customer implements Runnable {
 
     private Integer batch = 10;
 
-    private Customer() {}
+    private Consumer() {}
 
-    public Customer(String name) {
+    public Consumer(String name) {
         this(name, 0L);
     }
 
-    public Customer(String name, Long delay) {
+    public Consumer(String name, Long delay) {
         this(name, delay, 10);
     }
 
-    public Customer(String name, Long delay, Integer batch) {
+    public Consumer(String name, Long delay, Integer batch) {
         this.name = name;
         this.delay = delay;
         this.batch = batch;
@@ -110,9 +109,9 @@ public class Customer implements Runnable {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        Customer customer = (Customer) o;
+        Consumer consumer = (Consumer) o;
 
-        return Objects.equals(name, customer.name);
+        return Objects.equals(name, consumer.name);
     }
 
     @Override

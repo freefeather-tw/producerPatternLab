@@ -1,6 +1,6 @@
 package com.freefeather.lab.controller;
 
-import com.freefeather.lab.entity.Customer;
+import com.freefeather.lab.entity.Consumer;
 import com.freefeather.lab.entity.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +17,16 @@ public class ProducerController {
     private Producer producer;
 
     @GetMapping("/addCustomer/{name}")
-    public String addCustomer(@PathVariable("name") String customerName) {
-        Customer c = new Customer(customerName, 1000L);
+    public String addConsumer(@PathVariable("name") String consumerName) {
+        Consumer c = new Consumer(consumerName, 1000L);
         producer.subscribe(c);
 
         return "Finish";
     }
 
     @GetMapping("/removeCustomer/{name}")
-    public String removeCustomer(@PathVariable("name") String customerName) {
-        Customer c = new Customer(customerName);
+    public String removeConsumer(@PathVariable("name") String consumerName) {
+        Consumer c = new Consumer(consumerName);
         producer.unSubscribe(c);
 
         return "Finish";

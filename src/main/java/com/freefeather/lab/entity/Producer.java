@@ -3,7 +3,6 @@ package com.freefeather.lab.entity;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -13,29 +12,29 @@ public class Producer {
     @Getter
     private Queue<Integer> queue = new LinkedList<>();
 
-    private List<Customer> customerList = new ArrayList<>();
+    private List<Consumer> consumerList = new ArrayList<>();
 
-    public void subscribe(Customer customer) {
-        synchronized (customerList) {
-            if (!customerList.contains(customer)) {
-                customer.setQueue(queue);
-                customer.start();
-                customerList.add(customer);
+    public void subscribe(Consumer consumer) {
+        synchronized (consumerList) {
+            if (!consumerList.contains(consumer)) {
+                consumer.setQueue(queue);
+                consumer.start();
+                consumerList.add(consumer);
             }
         }
     }
 
-    public void unSubscribe(Customer customer) {
-        Optional<Customer> optional = customerList.stream().filter(c -> c.getName().equals(customer.getName())).findFirst();
+    public void unSubscribe(Consumer consumer) {
+        Optional<Consumer> optional = consumerList.stream().filter(c -> c.getName().equals(consumer.getName())).findFirst();
 
         if (optional.isPresent()) {
             optional.get().stop();
-            customerList.remove(customer);
+            consumerList.remove(consumer);
         } else {
             log.info("find nothing");
         }
 
-        log.info("customerList: " + customerList.size());
+        log.info("customerList: " + consumerList.size());
     }
 
     public void add(Integer integer) {

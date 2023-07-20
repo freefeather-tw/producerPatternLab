@@ -1,6 +1,6 @@
 package com.freefeather.lab.config;
 
-import com.freefeather.lab.entity.Customer;
+import com.freefeather.lab.entity.Consumer;
 import com.freefeather.lab.entity.Producer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class ProducerConfig {
         Producer producer = new Producer();
         IntStream.range(0, 2)
                 .forEach(i -> {
-                    Customer c = new Customer("customer" + i, i * 1500L, 10);
+                    Consumer c = new Consumer("consumer" + i, i * 1500L, 10);
                     producer.subscribe(c);
                 });
 
