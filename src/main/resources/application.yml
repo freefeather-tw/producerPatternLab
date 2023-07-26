@@ -1,0 +1,12 @@
+test: "Hello World!"
+
+logging:
+  level:
+    root: ERROR
+    org.springframework: ERROR
+    com.freefeather: DEBUG
+    #file:
+    #name: 'D:/ctbc/log/auth/auth.log'
+  pattern:
+    file: '%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n'
+    console: '%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}:%L - %msg%n'

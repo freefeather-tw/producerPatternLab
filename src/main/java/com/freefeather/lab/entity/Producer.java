@@ -56,10 +56,10 @@ public class Producer {
             optional.get().stop();
             consumerList.remove(consumer);
         } else {
-            log.info("find nothing");
+            log.debug("find nothing");
         }
 
-        log.info("customerList: " + consumerList.size());
+        log.debug("customerList: {}", consumerList.size());
     }
 
     public void add(Integer integer) {

@@ -44,26 +44,33 @@ public class Consumer implements Runnable {
     }
 
     void start() {
-        status = "START";
+        status = START;
 
         if (null != delay) {
             try {
-                log.info(getDateTimeString() +": " + name + " 要delay了！！");
+                log.debug("{} 要delay了！！", name);
                 Thread.sleep(delay);
 
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        log.info(getDateTimeString() + ": " + name + " 開始執行thread");
+        log.debug("{} 開始執行thread", name);
 
         thread = new Thread(this);
         thread.start();
-
     }
 
     void stop() {
-        status = "STOP";
+        status = STOP;
+    }
+
+    void pause() {
+        status = PAUSE;
+    }
+
+    void resume() {
+        status = RESUME;
     }
 
     @Override
@@ -75,7 +82,7 @@ public class Consumer implements Runnable {
                     if (queue.isEmpty()) {
                         //log.info(name + " Queue 空空如也，沒有資料可以處理了！！");
                     } else {
-                        log.info("queue 還有 " + queue.size() + "筆資料");
+                        log.info("queue 還有 {} 筆資料", queue.size());
                         IntStream.range(0, batch)
                                 .forEach(i -> {
                                     Integer result = queue.poll();
@@ -89,7 +96,7 @@ public class Consumer implements Runnable {
 
                 //處理資料
                 if (!processList.isEmpty()) {
-                    log.info(name + " 處理了: " + Strings.join(processList, ','));
+                    log.info("{} 處理了: {}", name, Strings.join(processList, ','));
                 }
 
                 try {

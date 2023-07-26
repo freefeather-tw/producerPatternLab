@@ -2,6 +2,7 @@ package com.freefeather.lab.controller;
 
 import com.freefeather.lab.entity.Consumer;
 import com.freefeather.lab.entity.Producer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/producer")
+@Slf4j
 public class ProducerController {
 
     @Autowired
@@ -38,6 +40,15 @@ public class ProducerController {
         Integer end   = data.get("end");
 
         producer.addAll(IntStream.range(start, end).boxed().collect(Collectors.toList()));
+
+        return "Finish";
+    }
+
+    @GetMapping("/testUnderline")
+    public String testUnderline() {
+        int test = 123_456;
+
+        log.debug("test; [{}]" , test);
 
         return "Finish";
     }
