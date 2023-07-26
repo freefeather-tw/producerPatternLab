@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.IntStream;
 
+import static com.freefeather.lab.entity.ThreadStatus.*;
+
 @Slf4j
 public class Consumer implements Runnable {
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -23,7 +25,7 @@ public class Consumer implements Runnable {
 
     private Thread thread;
 
-    private String status = "START";
+    private ThreadStatus status = START;
 
     private Integer batch = 10;
 
@@ -76,7 +78,15 @@ public class Consumer implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if ("START".equals(status)) {
+            if (status == PAUSE) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (status == START || status == RESUME) {
                 List<Integer> processList = new ArrayList<>();
                 synchronized (queue) {
                     if (queue.isEmpty()) {

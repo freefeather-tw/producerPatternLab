@@ -18,6 +18,7 @@ public class ProducerController {
     @Autowired
     private Producer producer;
 
+
     @GetMapping("/addCustomer/{name}")
     public String addConsumer(@PathVariable("name") String consumerName) {
         Consumer c = new Consumer(consumerName, 1000L);
@@ -30,6 +31,20 @@ public class ProducerController {
     public String removeConsumer(@PathVariable("name") String consumerName) {
         Consumer c = new Consumer(consumerName);
         producer.unSubscribe(c);
+
+        return "Finish";
+    }
+
+    @PutMapping("/pauseConsumer/{name}")
+    public String pauseConsumer(@PathVariable("name") String consumerName) {
+        producer.pauseConsumer(consumerName);
+
+        return "Finish";
+    }
+
+    @PutMapping("/resumeConsumer/{name}")
+    public String resumeConsumer(@PathVariable("name") String consumerName) {
+        producer.resumeConsumer(consumerName);
 
         return "Finish";
     }

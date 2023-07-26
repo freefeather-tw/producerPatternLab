@@ -73,4 +73,30 @@ public class Producer {
             queue.addAll(collection);
         }
     }
+
+    public void pauseConsumer(String name) {
+        Optional<Consumer> optional = consumerList.stream().filter(c -> c.getName().equals(name)).findFirst();
+
+        if (optional.isPresent()) {
+            Consumer consumer = optional.get();
+            synchronized (consumer) {
+                consumer.pause();
+            }
+        } else {
+            log.debug("find nothing");
+        }
+    }
+
+    public void resumeConsumer(String name) {
+        Optional<Consumer> optional = consumerList.stream().filter(c -> c.getName().equals(name)).findFirst();
+
+        if (optional.isPresent()) {
+            Consumer consumer = optional.get();
+            synchronized (consumer) {
+                consumer.resume();
+            }
+        } else {
+            log.debug("find nothing");
+        }
+    }
 }
