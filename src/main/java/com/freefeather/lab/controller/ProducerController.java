@@ -63,7 +63,7 @@ public class ProducerController {
     public String testUnderline() {
         int test = 123_456;
 
-        log.debug("test; [{}]" , test);
+        log.debug("test: [{}]" , test);
 
         return "Finish";
     }
