@@ -78,6 +78,8 @@ public class Consumer implements Runnable {
     @Override
     public void run() {
         while (true) {
+            if (status == STOP) break;
+
             if (status == PAUSE) {
                 try {
                     Thread.sleep(1000);
@@ -115,8 +117,6 @@ public class Consumer implements Runnable {
                     e.printStackTrace();
                 }
             }
-
-            //跳出迴圈
         }
     }
 
@@ -138,10 +138,5 @@ public class Consumer implements Runnable {
 
     void setQueue(Queue<Integer> queue) {
         this.queue = queue;
-    }
-
-    private String getDateTimeString() {
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
-        return dateTimeFormatter.format(localDateTime);
     }
 }
