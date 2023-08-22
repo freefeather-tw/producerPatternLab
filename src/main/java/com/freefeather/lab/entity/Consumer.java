@@ -4,13 +4,11 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.IntStream;
 
-import static com.freefeather.lab.entity.ThreadStatus.*;
+import static com.freefeather.lab.entity.ConsumerStatus.*;
 
 @Slf4j
 public class Consumer implements Runnable {
@@ -25,7 +23,7 @@ public class Consumer implements Runnable {
 
     private Thread thread;
 
-    private ThreadStatus status = START;
+    private ConsumerStatus status = START;
 
     private Integer batch = 10;
 

@@ -1,5 +1,5 @@
 package com.freefeather.lab.entity;
 
-public enum ThreadStatus {
+public enum ConsumerStatus {
     START, STOP, PAUSE, RESUME
 }
