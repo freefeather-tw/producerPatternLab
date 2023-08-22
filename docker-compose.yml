@@ -1,0 +1,12 @@
+version: "3"
+services:
+  producer-pattern-lab:
+    image: producer-pattern-lab
+    container_name: producer-pattern-lab
+    ports:
+      - 8080:8080
+    networks:
+      - test-network
+networks:
+  test-network:
+    external: true
