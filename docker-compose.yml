@@ -2,11 +2,43 @@ version: "3"
 services:
   producer-pattern-lab:
     image: producer-pattern-lab
-    container_name: producer-pattern-lab
     ports:
       - 8080:8080
     networks:
-      - test-network
+      - swarm-network
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: 500M
+        reservations:
+          cpus: "0.20"
+          memory: 100M
+      placement:
+        constraints:
+          - node.role == worker
+  #nginx:
+  #  image: nginx
+  #  ports:
+  #    - 80:80
+  #  networks:
+  #    - swarm-network
+  #  deploy:
+  #    replicas: 1
+  #    resources:
+  #      limits:
+  #        cpus: "0.30"
+  #        memory: 500M
+  #      reservations:
+  #        cpus: "0.20"
+  #        memory: 100M
+  #    placement:
+  #      constraints:
+  #        - node.role == worker
 networks:
-  test-network:
-    external: true
+  swarm-network:
+    driver: overlay
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+    attachable: true
