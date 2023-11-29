@@ -25,7 +25,7 @@ public class Producer {
 
         IntStream.range(0, 2)
                 .forEach(i -> {
-                    Consumer c = new Consumer("consumer" + i, i * 1500L, 10);
+                    Consumer c = new Consumer("consumer" + i, i * 1500L, 50);
                     this.subscribe(c);
                 });
 

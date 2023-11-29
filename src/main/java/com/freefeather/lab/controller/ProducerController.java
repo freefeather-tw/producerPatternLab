@@ -11,15 +11,13 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @RestController
-@RequestMapping("/producer")
 @Slf4j
 public class ProducerController {
 
     @Autowired
     private Producer producer;
 
-
-    @GetMapping("/addCustomer/{name}")
+    @PostMapping("/producer/consumer/{name}")
     public String addConsumer(@PathVariable("name") String consumerName) {
         Consumer c = new Consumer(consumerName, 1000L);
         producer.subscribe(c);
@@ -27,7 +25,7 @@ public class ProducerController {
         return "Finish";
     }
 
-    @GetMapping("/removeCustomer/{name}")
+    @DeleteMapping("/producer/consumer/{name}")
     public String removeConsumer(@PathVariable("name") String consumerName) {
         Consumer c = new Consumer(consumerName);
         producer.unSubscribe(c);
@@ -35,22 +33,23 @@ public class ProducerController {
         return "Finish";
     }
 
-    @PutMapping("/pauseConsumer/{name}")
+    @PutMapping("/producer/consumer:pause/{name}")
     public String pauseConsumer(@PathVariable("name") String consumerName) {
         producer.pauseConsumer(consumerName);
 
         return "Finish";
     }
 
-    @PutMapping("/resumeConsumer/{name}")
+    @PutMapping("/consumer:resume/{name}")
     public String resumeConsumer(@PathVariable("name") String consumerName) {
         producer.resumeConsumer(consumerName);
 
         return "Finish";
     }
 
-    @PostMapping("/addData")
+    @PostMapping("/producer/data")
     public String addData(@RequestBody Map<String, Integer> data) {
+        log.debug("data: [{}]" , data);
         Integer start = data.get("start");
         Integer end   = data.get("end");
 
@@ -59,7 +58,7 @@ public class ProducerController {
         return "Finish";
     }
 
-    @GetMapping("/testUnderline")
+    @GetMapping("/producer/test:underline")
     public String testUnderline() {
         int test = 123_456;
 
